@@ -1,0 +1,29 @@
+/*navbar color*/
+.navbar{
+  background-color: #03073b;
+}
+.weather-icon{
+  height: 2.3rem;
+  width: 2.3rem;
+}
+/*navbar title*/
+.navbar-text {
+  color: white;
+  font-weight: bold;
+}
+/*size of dropdown buttons reduced for smaller screens*/
+.dropdown-menu{
+  width: 1vw;
+}
+.dropdown-item{
+  padding-left: 0.5rem;  
+}
+/*flag size*/
+.us-flag, .fr-flag, .sp-flag{
+  height: 1rem;
+  width: 1rem;
+}
+.github-logo{
+  height: 1.2rem;
+  width: 1.2rem;
+}
