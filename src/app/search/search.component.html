@@ -5,10 +5,16 @@
         <h1>Current weather and forecast</h1>
     </div>
     <div class="row">
+        <p>Please enter geographic coordinates in the Decimal degrees (DD) format whithout whitespace.<br>
+            (ex : 30.389089,-97.756294)
+        </p>
+    </div>
+    <div class="row">
         <!--Submitting the search enables the method onSearchWeather-->
-        <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSearchWeather(input)" #input="ngForm">
-            <input class="form-control mr-sm-2" type="text" placeholder="Country, city, coordinates..." aria-label="Search" name="location" ngModel required>
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" [disabled]="input.invalid">Search</button>
+        <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmitSearch()" [formGroup]="weatherSearchForm">
+            <input class="form-control mr-sm-2" type="text" placeholder="Country, city, coordinates..." aria-label="Search" formControlName="location">
+            <span *ngIf="location.invalid">Invalid location</span>
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" [disabled]="weatherSearchForm.invalid" >Search</button>
         </form>
         <!--Disables the Search button while the box is empty-->
     </div>
