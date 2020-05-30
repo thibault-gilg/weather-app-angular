@@ -7,7 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
-import { SearchService } from './search/search.service';
+import { WeatherService } from './weather.service';
+import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
@@ -17,6 +18,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     NavbarComponent,
     SearchComponent,
     PageNotFoundComponent,
+    CurrentWeatherComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [SearchService],
+  providers: [WeatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

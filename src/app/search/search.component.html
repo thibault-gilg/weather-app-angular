@@ -1,4 +1,3 @@
-<app-navbar></app-navbar>
 <!--Search feature-->
 <div class="container">
     <div class="row">
@@ -13,9 +12,12 @@
         <!--Submitting the search enables the method onSearchWeather-->
         <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmitSearch()" [formGroup]="weatherSearchForm">
             <input class="form-control mr-sm-2" type="text" placeholder="Country, city, coordinates..." aria-label="Search" formControlName="location">
-            <span *ngIf="location.invalid">Invalid location</span>
+            <span *ngIf="location.invalid">Invalid input</span>
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" [disabled]="weatherSearchForm.invalid" >Search</button>
         </form>
         <!--Disables the Search button while the box is empty-->
     </div>
 </div>
+
+<app-current-weather ></app-current-weather>
+
