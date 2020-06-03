@@ -20,11 +20,21 @@ export class CurrentWeatherComponent implements OnInit {
       .subscribe(obs => {
         obs.subscribe(data => {
           this.currentWeather = data;
-          console.log(this.currentWeather);
-      },
+          this.sendLocation(this.currentWeather);
+        },
       (error) => {
         this.router.navigate(['error404'])
       })
     });
   }
+
+  //send the currentWeather object to the service
+  sendLocation(currentWeather: any): void{
+    this.weatherService.setLocationCoordinates(currentWeather);
+  }
+
+  onDisplayMore(): void{
+    this.weatherService.getForecastWeather();
+  }
+  
 }

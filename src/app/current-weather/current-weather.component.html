@@ -14,4 +14,7 @@
     <p class="text-center">
     Conditions : {{this.currentWeather?.weather[0].description}}
     </p>
+    <button (click)="onDisplayMore()" type="button" class="btn btn-secondary">More weather at this location</button>
 </div>
+
+<app-forecast-weather></app-forecast-weather>

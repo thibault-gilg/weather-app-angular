@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { WeatherService } from './weather.service';
 import { CurrentWeatherComponent } from './current-weather/current-weather.component';
+import { ForecastWeatherComponent } from './forecast-weather/forecast-weather.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
@@ -19,6 +20,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SearchComponent,
     PageNotFoundComponent,
     CurrentWeatherComponent,
+    ForecastWeatherComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,10 @@
-<p>forecast-weather works!</p>
+
+<!--Display current weather results-->
+<div class="weather-results" *ngIf="this.forecastWeather">
+    <p class="text-center">
+    Temperature min: {{this.forecastWeather?.daily[0].temp.min}}°C
+    </p>
+    <p class="text-center">
+    Temperature max : {{this.forecastWeather?.daily[0].temp.max}}°C
+    </p>
+</div>
