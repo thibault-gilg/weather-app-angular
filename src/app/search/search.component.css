@@ -1,7 +1,13 @@
-h1{
+.container{
     padding-top: 8rem;
 }
+.row{
+    display: flex;
+    justify-content: center;
+}
+p{
+    text-align: center;
+}
 form{
-    padding-left: 20%;
-    padding-top: 2rem;
+    padding-top: 0.5rem;
 }
