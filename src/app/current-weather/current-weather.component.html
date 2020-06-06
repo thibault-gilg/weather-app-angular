@@ -1,20 +1,20 @@
 <!--Display current weather results-->
-<div class="weather-results" *ngIf="this.currentWeather">
-    <h3 class="text-center my-4 ">Weather Details:</h3>
-    <p class="text-center">
-    Location : {{this.currentWeather?.name}}, {{this.currentWeather?.sys.country}}
-    </p>
-    <p class="text-center">
-        <!--Unix timestamp conversion to date-->
-        Time : {{this.currentWeather?.dt*1000 | date}}
-    </p>
-    <p class="text-center">
-    Temperature : {{this.currentWeather?.main.temp}}°C
-    </p>
-    <p class="text-center">
-    Conditions : {{this.currentWeather?.weather[0].description}}
-    </p>
-    <button (click)="onDisplayMore()" type="button" class="btn btn-secondary">More weather at this location</button>
+<div class="container">
+    <div class="weather-results" *ngIf="this.currentWeather">
+        <h3 class="text-center my-4 ">Weather Details:</h3>
+        <p class="text-center">
+        Location : {{this.currentWeather?.name}}, {{this.currentWeather?.sys.country}}
+        </p>
+        <p class="text-center">
+            <!--Unix timestamp conversion to date-->
+            Time : {{this.currentWeather?.dt*1000 | date:'dd/mm/yy, h:mm a'}}
+        </p>
+        <p class="text-center">
+        Temperature : {{this.currentWeather?.main.temp}}°C
+        </p>
+        <p class="text-center">
+        Conditions : {{this.currentWeather?.weather[0].description}}
+        </p>
+    </div>
 </div>
 
-<app-forecast-weather></app-forecast-weather>

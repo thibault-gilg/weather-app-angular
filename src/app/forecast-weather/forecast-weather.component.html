@@ -1,10 +1,17 @@
 
-<!--Display current weather results-->
-<div class="weather-results" *ngIf="this.forecastWeather">
-    <p class="text-center">
-    Temperature min: {{this.forecastWeather?.daily[0].temp.min}}°C
-    </p>
-    <p class="text-center">
-    Temperature max : {{this.forecastWeather?.daily[0].temp.max}}°C
-    </p>
+<!--Display forecast weather data-->
+
+<div class="container" *ngIf="forecastWeather">
+  <div class="row">
+    <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(1)">Tomorrow</button>
+    <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(3)">3 Days</button>
+    <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(7)">7 Days</button>
+  </div>
+  <div class="row">
+    <div class="forecast-weather"*ngFor="let day of forecastWeather; index as i">
+      <p class="weather-data" *ngIf="i>0 && i<=days">
+          Temperature min: {{day.temp.min}}°C
+      </p>
+    </div>
+  </div>      
 </div>

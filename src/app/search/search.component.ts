@@ -14,7 +14,7 @@ export class SearchComponent implements OnInit {
   public currentWeather: any;
   weatherSearchForm: FormGroup;
   //Regexp to control the user's input : geographic coordinates (D,D) or word
-  inputRegexp : string = "(^[A-Za-z]+$)|^([-+]?)([0-9]{1,2})(((\.)([0-9]+)(,)))(\s*)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?)$";
+  inputRegex : string = "^[A-Za-z]+$|^([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))(\s*)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?)$";
 
   constructor(private weatherService: WeatherService,
               private formBuilder: FormBuilder,
@@ -27,7 +27,7 @@ export class SearchComponent implements OnInit {
 
   initForm() {
     this.weatherSearchForm = this.formBuilder.group({
-      location: new FormControl('', [Validators.required, Validators.pattern(this.inputRegexp)])
+      location: new FormControl('', [Validators.required, Validators.pattern(this.inputRegex)])
     })
   }
   
@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmitSearch(): void {
-    const location = this.weatherSearchForm.value.location;
+    const location: string = this.weatherSearchForm.value.location;
     this.weatherService.getCurrentWeather(location);
   }
 
