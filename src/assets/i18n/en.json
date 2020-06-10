@@ -1,0 +1,12 @@
+{
+    "navbar":{
+        "title": "The weather of your favorite location"
+
+    },
+    "search":{
+        "header": "Current weather and forecast",
+        "instructions": "If you choose to enter GPS coordinates, please use the Decimal Degrees (DD) format whithout whitespace.",
+        "input": "City or GPS coordinates",
+        "button": "Search"    
+    }
+}

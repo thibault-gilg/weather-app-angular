@@ -1,14 +1,13 @@
-
-<!--Display forecast weather data-->
-
 <div class="container" *ngIf="forecastWeather">
   <div class="row">
+    <!--Selection for the number of days of forecast-->
     <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(1)">Tomorrow</button>
     <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(3)">3 Days</button>
     <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(7)">7 Days</button>
   </div>
   <div class="row">
     <div class="forecast-weather"*ngFor="let day of forecastWeather; index as i">
+      <!--Display from tomorrow up to the selected number of days-->      
       <p class="weather-data" *ngIf="i>0 && i<=days">
           Temperature min: {{day.temp.min}}°C
       </p>

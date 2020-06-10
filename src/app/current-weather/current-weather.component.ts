@@ -16,6 +16,10 @@ export class CurrentWeatherComponent implements OnInit {
   constructor(private weatherService: WeatherService, private router: Router) { }
 
   ngOnInit(): void {
+    this.displayCurrentWeather();
+  }
+
+  displayCurrentWeather(){
     this.currentWeatherSubscription = this.weatherService.getCurrentObservable()
       .subscribe(obs => {
         obs.subscribe(data => {
@@ -28,8 +32,7 @@ export class CurrentWeatherComponent implements OnInit {
       })
     });
   }
-
-  //send the currentWeather object to the service to make request for forecast weather
+  //send the currentWeather object to the service to make a GET request for forecast weather
   sendLocation(currentWeather: any): void{
     this.weatherService.setLocationCoordinates(currentWeather);
   }

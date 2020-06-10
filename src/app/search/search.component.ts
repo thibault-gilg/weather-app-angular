@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { WeatherService} from '../weather.service';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
-import { Router } from '@angular/router'
+import { Component, OnInit, Injectable } from '@angular/core';
+import { WeatherService } from '../weather.service';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms'
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -9,35 +9,40 @@ import { Router } from '@angular/router'
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
+@Injectable()
 export class SearchComponent implements OnInit {
-  
-  public currentWeather: any;
-  weatherSearchForm: FormGroup;
-  //Regexp to control the user's input : geographic coordinates (D,D) or word
-  inputRegex : string = "^[A-Za-z]+$|^([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))(\s*)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?)$";
+
+  private location: string;
+  public weatherSearchForm: FormGroup;
+  //Regexp to control the user's input : word or geographic coordinates (D,D)
+  //whitespace regex not recongnized by typescript
+  private inputRegex: string = "^[A-Za-z]+$|^([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))(\s*)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?)$";
 
   constructor(private weatherService: WeatherService,
-              private formBuilder: FormBuilder,
-              private router: Router) 
-              { }
+    private formBuilder: FormBuilder,
+    private cookie: CookieService) {
+  }
 
   ngOnInit(): void {
     this.initForm();
   }
 
+  //control the elements entered by the user
   initForm() {
     this.weatherSearchForm = this.formBuilder.group({
-      location: new FormControl('', [Validators.required, Validators.pattern(this.inputRegex)])
+      input: new FormControl('', [Validators.required, Validators.pattern(this.inputRegex)])
     })
   }
-  
-  get location() {
-    return this.weatherSearchForm.get('location');
+
+  //retrieve user input
+  get input(): AbstractControl {
+    return this.weatherSearchForm.get('input');
   }
 
+  //retrieve string value and call the WeatherService 
   onSubmitSearch(): void {
-    const location: string = this.weatherSearchForm.value.location;
+    const location: string = this.weatherSearchForm.value.input;
     this.weatherService.getCurrentWeather(location);
+    //this.displayLastLocation(location);
   }
-
 }

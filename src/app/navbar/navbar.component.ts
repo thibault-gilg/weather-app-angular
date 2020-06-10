@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,13 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  
-  //title on the navbar
-  title = "The weather of your favorite location"
 
-  constructor() { }
+  public units = new Map<String, String>();
+
+
+  constructor(public translate: TranslateService,
+    private cookie: CookieService) {
+    this.units.set("metric","°C");
+    this.units.set("imperial","°F");
+  }
 
   ngOnInit(): void {
   }
 
+  //reload page when language is changed
+  reloadPage(): void {
+    window.location.reload();
+  }
+
+  saveUnit(unit: string): void {
+    this.cookie.set("unit",unit);
+    this.reloadPage();
+  }
 }

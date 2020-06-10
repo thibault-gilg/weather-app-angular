@@ -6,7 +6,7 @@
         Location : {{this.currentWeather?.name}}, {{this.currentWeather?.sys.country}}
         </p>
         <p class="text-center">
-            <!--Unix timestamp conversion to date-->
+            <!--Unix timestamp conversion with date pipe-->
             Time : {{this.currentWeather?.dt*1000 | date:'dd/mm/yy, h:mm a'}}
         </p>
         <p class="text-center">

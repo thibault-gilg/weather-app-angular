@@ -1,0 +1,11 @@
+{
+    "navbar":{
+        "title": "La météo de votre lieu préféré"
+    },
+    "search":{
+        "header": "Météo actuelle et prévisions",
+        "instructions": "Si vous désirez entrer des coordonnées GPS, veuillez utiliser le format Degrés Décimaux (DD) sans espace.",
+        "input": "Ville ou coordonnées GPS",
+        "button": "Rechercher" 
+    }
+}

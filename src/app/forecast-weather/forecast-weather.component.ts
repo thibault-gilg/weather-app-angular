@@ -12,23 +12,28 @@ export class ForecastWeatherComponent implements OnInit {
 
   public forecastWeatherSubscription: Subscription;
   public forecastWeather: any;
-  public days: number; 
-  
+  public days: number;
+
   constructor(private router: Router, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
+    this.displayForecastWeather();
+  }
+
+  displayForecastWeather(): void {
     this.forecastWeatherSubscription = this.weatherService.getForecastObservable()
       .subscribe(obs => {
         obs.subscribe(data => {
           this.forecastWeather = data.daily;
-      },
-      (error) => {
-        this.router.navigate(['error404'])
-      })
-    });
+        },
+          (error) => {
+            this.router.navigate(['error404'])
+          })
+      });
   }
-  
-  OnDisplayForecast(days: number): void{
+
+  //assign the number of days selected by the user
+  OnDisplayForecast(days: number): void {
     this.days = days;
   }
 }
