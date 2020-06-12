@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class WeatherService {
 
-  private cityRegex: RegExp = /^[A-Za-z]+$/;
+  private coordinatesRegex: RegExp = /^ *([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))( +)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?) *$/;
   private apiKey = '0e613bc065bbac924796e909e4160d7b';
   private apiUrl = 'http://api.openweathermap.org/data/2.5';
+  private language: string;
 
   private currentWeatherSubject = new Subject<any>();
   private forecastWeatherSubject = new Subject<any>();
@@ -19,25 +21,31 @@ export class WeatherService {
   private longitude: number;
 
   constructor(private http: HttpClient,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    private cookie: CookieService) {
+    this.language = this.translate.currentLang;
+  }
 
   //adapt the location for the GET request
-  checkInputType(input: string): string {
-    if (this.cityRegex.test(input)) {
-      var inputString: string = 'q=' + input;
+  checkLocationType(location: string, stateCode: string, countryCode: string): string {
+    if (this.coordinatesRegex.test(location)) {
+      const splitlocation = location.split(', ', 2);
+      var urlLocation: string = 'lat=' + splitlocation[0] + '&lon=' + splitlocation[1];
+    }
+    else if (stateCode == null){
+      urlLocation = 'q=' + location + ',' + countryCode;
     }
     else {
-      const splitInput = input.split(',', 2);
-      inputString = 'lat=' + splitInput[0] + '&lon=' + splitInput[1];
+      urlLocation = 'q=' + location + ',' + stateCode + ',' + countryCode;
     }
-    return inputString;
+    return urlLocation;
   }
 
   //GET request to the API
-  getCurrentWeather(location: string): void {
-    const locationString = this.checkInputType(location);
+  getCurrentWeather(location: string, stateCode: string, countryCode: string): void {
+    const urlLocation = this.checkLocationType(location, stateCode, countryCode);
     this.currentWeatherSubject.next(this.http.get(
-      this.apiUrl + '/weather?' + locationString + '&lang=' + this.translate.currentLang + '&units=metric&appid=' + this.apiKey));
+      this.apiUrl + '/weather?' + urlLocation + '&lang=' + this.language + '&units=' + this.cookie.get("unit") + '&appid=' + this.apiKey));
   }
 
   //create an observable for the CurrentWeather Component
@@ -60,5 +68,4 @@ export class WeatherService {
   getForecastObservable(): Observable<any> {
     return this.forecastWeatherSubject.asObservable();
   }
-
 }

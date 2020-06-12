@@ -1,20 +1,47 @@
 <!--Display current weather results-->
 <div class="container">
-    <div class="weather-results" *ngIf="this.currentWeather">
-        <h3 class="text-center my-4 ">Weather Details:</h3>
-        <p class="text-center">
-        Location : {{this.currentWeather?.name}}, {{this.currentWeather?.sys.country}}
-        </p>
-        <p class="text-center">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 current-weather" *ngIf="this.currentWeather">
+        <p class="text">
+            <img src="http://openweathermap.org/img/wn/{{this.currentWeather.weather[0].icon}}@2x.png" alt="Weather icon">
+            <span class="main">{{this.currentWeather.name}}, {{this.currentWeather.sys.country}}
+                {{this.currentWeather.main.temp}}<span *ngIf="this.isImperial(); else metric"> °F</span>
+                <ng-template #metric> °C</ng-template>
+            </span><br />
+            {{this.currentWeather.weather[0].description | titlecase}}<br />
             <!--Unix timestamp conversion with date pipe-->
-            Time : {{this.currentWeather?.dt*1000 | date:'dd/mm/yy, h:mm a'}}
+            {{this.currentWeather.dt*1000 | date:'MM/dd/yyyy, h:mm a'}}<br/>
         </p>
-        <p class="text-center">
-        Temperature : {{this.currentWeather?.main.temp}}°C
-        </p>
-        <p class="text-center">
-        Conditions : {{this.currentWeather?.weather[0].description}}
-        </p>
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row">{{'weather.local_time' | translate}}</th>
+                    <td>{{this.localTime | date:'h:mm a'}}</td>
+                    <th scope="row">{{'weather.wind_speed' | translate}}</th>
+                    <td>{{this.currentWeather.wind.speed}}<span *ngIf="this.isImperial(); else meter"> mph</span>
+                        <ng-template #meter> m/s</ng-template>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'weather.feels_like' | translate}}</th>
+                    <td>{{this.currentWeather.main.feels_like}}<span *ngIf="this.isImperial(); else metric"> °F</span>
+                        <ng-template #metric> °C</ng-template>
+                    </td>
+                    <th scope="row">{{'weather.clouds' | translate}}</th>
+                    <td>{{this.currentWeather.clouds.all}} %</td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'weather.humidity' | translate}}</th>
+                    <td>{{this.currentWeather.main.humidity}} %</td>
+                    <th scope="row">{{'weather.sunrise' | translate}}</th>
+                    <td>{{this.currentWeather.sys.sunrise*1000 | date: 'h:mm a'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">{{'weather.pressure' | translate}}</th>
+                    <td>{{this.currentWeather.main.pressure}} hPa</td>
+                    <th scope="row">{{'weather.sunset' | translate}}</th>
+                    <td>{{this.currentWeather.sys.sunset*1000 | date: 'h:mm a'}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-

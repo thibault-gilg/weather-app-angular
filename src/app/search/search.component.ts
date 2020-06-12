@@ -12,15 +12,16 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable()
 export class SearchComponent implements OnInit {
 
-  private location: string;
   public weatherSearchForm: FormGroup;
-  //Regexp to control the user's input : word or geographic coordinates (D,D)
-  //whitespace regex not recongnized by typescript
-  private inputRegex: string = "^[A-Za-z]+$|^([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))(\s*)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?)$";
+  //Regex to control the user's input: word or geographic coordinates (D,D)
+  private locationRegex: string = "^ *([A-Za-z] *)+$|^ *([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))( +)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?) *$";
+  //Regex: two letters only (state and country codes)
+  private codeRegex: string = "^ *[A-Za-z]{2} *$";
+  private coordinatesRegex: RegExp = /^ *([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))( +)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?) *$/;
+
 
   constructor(private weatherService: WeatherService,
-    private formBuilder: FormBuilder,
-    private cookie: CookieService) {
+    private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -30,19 +31,47 @@ export class SearchComponent implements OnInit {
   //control the elements entered by the user
   initForm() {
     this.weatherSearchForm = this.formBuilder.group({
-      input: new FormControl('', [Validators.required, Validators.pattern(this.inputRegex)])
+      location: [null, [Validators.required, Validators.pattern(this.locationRegex)]],
+      stateCode: [null, [Validators.pattern(this.codeRegex)]],
+      countryCode: [null, [Validators.pattern(this.codeRegex)]],
     })
   }
 
-  //retrieve user input
-  get input(): AbstractControl {
-    return this.weatherSearchForm.get('input');
+  //getters for the form values
+  get location(): AbstractControl {
+    return this.weatherSearchForm.get('location');
+  }
+
+  get stateCode() {
+    return this.weatherSearchForm.get('stateCode')
+  }
+
+  get countryCode() {
+    return this.weatherSearchForm.get('countryCode')
   }
 
   //retrieve string value and call the WeatherService 
   onSubmitSearch(): void {
-    const location: string = this.weatherSearchForm.value.input;
-    this.weatherService.getCurrentWeather(location);
-    //this.displayLastLocation(location);
+    const location: string = this.weatherSearchForm.value.location;
+    const stateCode: string = this.weatherSearchForm.value.stateCode;
+    const countryCode: string = this.weatherSearchForm.value.countryCode;
+    this.weatherService.getCurrentWeather(location, stateCode, countryCode);
+  }
+
+  setConditionalValidators() {
+    const countryCodeControl = this.weatherSearchForm.get('countryCode');
+    const stateCodeControl = this.weatherSearchForm.get('stateCode');
+    this.weatherSearchForm.get('stateCode').valueChanges
+      .subscribe(stateCode => {
+        countryCodeControl.setValidators(Validators.required)
+        countryCodeControl.updateValueAndValidity();
+      });
+    this.weatherSearchForm.get('location').valueChanges
+      .subscribe(location => {
+        if (this.coordinatesRegex.test(location)){
+          countryCodeControl.disable();
+          stateCodeControl.disable();
+        }
+      })
   }
 }

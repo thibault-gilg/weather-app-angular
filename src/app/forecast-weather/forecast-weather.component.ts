@@ -14,7 +14,8 @@ export class ForecastWeatherComponent implements OnInit {
   public forecastWeather: any;
   public days: number;
 
-  constructor(private router: Router, private weatherService: WeatherService) { }
+  constructor(private router: Router,
+    private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     this.displayForecastWeather();
@@ -25,6 +26,7 @@ export class ForecastWeatherComponent implements OnInit {
       .subscribe(obs => {
         obs.subscribe(data => {
           this.forecastWeather = data.daily;
+          console.log(this.forecastWeather);
         },
           (error) => {
             this.router.navigate(['error404'])

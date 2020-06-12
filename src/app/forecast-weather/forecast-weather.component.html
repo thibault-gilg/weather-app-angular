@@ -6,11 +6,25 @@
     <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(7)">7 Days</button>
   </div>
   <div class="row">
-    <div class="forecast-weather"*ngFor="let day of forecastWeather; index as i">
-      <!--Display from tomorrow up to the selected number of days-->      
-      <p class="weather-data" *ngIf="i>0 && i<=days">
-          Temperature min: {{day.temp.min}}°C
-      </p>
+    <div class="forecast-weather" *ngFor="let day of forecastWeather; index as i">
+      <!--Display from tomorrow up to the selected number of days-->
+      <div class="card" *ngIf="i>0 && i<=days">
+        <div class="card-body">
+          {{this.day.dt*1000 | date: 'EEEE, MMMM d'}}
+          <img src="http://openweathermap.org/img/wn/{{this.day.weather[0].icon}}@2x.png"
+            alt="Weather icon"><span>{{this.day.temp.day}} / {{this.day.temp.night}}</span>
+          {{this.day.weather[0].description | titlecase}}
+        </div>
+      </div>
+      <div>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>      
+  </div>
 </div>

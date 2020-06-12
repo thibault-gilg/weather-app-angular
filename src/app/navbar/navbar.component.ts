@@ -9,16 +9,23 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NavbarComponent implements OnInit {
 
-  public units = new Map<String, String>();
-
+  public units = new Map<string, string>();
+  private defaultUnit: string = "imperial";
 
   constructor(public translate: TranslateService,
-    private cookie: CookieService) {
-    this.units.set("metric","°C");
-    this.units.set("imperial","°F");
+    public cookie: CookieService) {
+    this.units.set("metric", "°C");
+    this.units.set("imperial", "°F");
+    this.setUnit();
   }
 
   ngOnInit(): void {
+  }
+
+  setUnit(): void {
+    if (!this.cookie.check("unit")) {
+      this.cookie.set("unit", this.defaultUnit);
+    }
   }
 
   //reload page when language is changed
@@ -27,7 +34,7 @@ export class NavbarComponent implements OnInit {
   }
 
   saveUnit(unit: string): void {
-    this.cookie.set("unit",unit);
+    this.cookie.set("unit", unit);
     this.reloadPage();
   }
 }

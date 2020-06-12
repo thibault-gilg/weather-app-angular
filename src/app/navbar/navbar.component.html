@@ -22,6 +22,7 @@
       <!--Unit selection-->
       <li class="select">
         <select name="units" id="units" #unitSelect (change)="saveUnit(unitSelect.value)">
+          <option selected>{{'navbar.unit' | translate}}</option>
           <option *ngFor="let unit of units | keyvalue" [value]="unit.key">
             {{unit.value}}
           </option>
@@ -31,8 +32,8 @@
       <!--Language selection-->
       <li class="select">
         <select name="lang" id="lang" #langSelect (change)="translate.use(langSelect.value) && reloadPage()">
-          <option *ngFor="let lang of translate.getLangs()" [value]="lang"
-            [attr.selected]="lang === translate.currentLang ? '' : null">
+          <option selected>{{'navbar.lang' | translate}}</option>
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang">
             {{lang}}
           </option>
         </select>
