@@ -9,22 +9,28 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NavbarComponent implements OnInit {
 
-  public units = new Map<string, string>();
-  private defaultUnit: string = "imperial";
+  public units = new Map<string, Array<string>>();
+  private defaultSystem: string = "imperial";
+  private defaultUnit: string = "°F";
+  private defaultSpeed: string = "mph";
+
 
   constructor(public translate: TranslateService,
     public cookie: CookieService) {
-    this.units.set("metric", "°C");
-    this.units.set("imperial", "°F");
-    this.setUnit();
+    this.units.set("metric", ["°C", "m/s"]);
+    this.units.set("imperial", ["°F", "mph"]);
+    this.setDefaultUnit();
   }
 
   ngOnInit(): void {
   }
 
-  setUnit(): void {
-    if (!this.cookie.check("unit")) {
-      this.cookie.set("unit", this.defaultUnit);
+  //store default unit system in cookies with an expiry time of 30 days
+  setDefaultUnit(): void {
+    if (!this.cookie.check("system")) {
+      this.cookie.set("system", this.defaultSystem, 30);
+      this.cookie.set("unit", this.defaultUnit, 30);
+      this.cookie.set("speed", this.defaultSpeed, 30);
     }
   }
 
@@ -34,7 +40,10 @@ export class NavbarComponent implements OnInit {
   }
 
   saveUnit(unit: string): void {
-    this.cookie.set("unit", unit);
+    const splitUnit = unit.split(',', 3);
+    this.cookie.set("system", splitUnit[0], 30);
+    this.cookie.set("unit", splitUnit[1], 30);
+    this.cookie.set("speed", splitUnit[2], 30);
     this.reloadPage();
   }
 }

@@ -10,20 +10,13 @@
       <!--Display from tomorrow up to the selected number of days-->
       <div class="card" *ngIf="i>0 && i<=days">
         <div class="card-body">
-          {{this.day.dt*1000 | date: 'EEEE, MMMM d'}}
-          <img src="http://openweathermap.org/img/wn/{{this.day.weather[0].icon}}@2x.png"
-            alt="Weather icon"><span>{{this.day.temp.day}} / {{this.day.temp.night}}</span>
-          {{this.day.weather[0].description | titlecase}}
+          <img src="http://openweathermap.org/img/wn/{{this.day.weather[0].icon}}@2x.png" alt="Weather icon">
+          <p>
+            <span>{{this.day.dt*1000 | date: 'EEEE, MMMM d'}}</span><br />
+            {{this.day.temp.day}} / {{this.day.temp.night}} {{this.cookie.get("unit")}}<br />
+            {{this.day.weather[0].description | titlecase}}
+          </p>
         </div>
-      </div>
-      <div>
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>

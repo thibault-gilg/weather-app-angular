@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './current-weather/current-weather.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 

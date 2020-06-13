@@ -1,28 +1,33 @@
 {
-    "navbar":{
-        "title": "La météo de votre lieu préféré",
+    "navbar": {
+        "title": "La météo du lieu de vos rêves",
         "unit": "Unité",
         "lang": "Langue"
     },
-    "search":{
+    "search": {
         "header": "Météo actuelle et prévisions",
         "coordinates": "Si vous désirez entrer des coordonnées géographiques, veuillez utiliser le format Degrés Décimaux (DD), par exemple, ",
         "codes": "Les pays et les Etats sont représentés par un code de deux lettres définis par la norme ISO 3166 (ex: FR = France).",
+        "us_states": "Le code de l'Etat correspond aux Etats américains.",
         "location": "Ville ou coordonnées GPS",
-        "state_code": "Code Etat",
+        "state_code": "Code de l'Etat",
         "country_code": "Code pays",
-        "button": "Rechercher" 
+        "button": "Rechercher"
     },
-    "weather":{
+    "weather": {
         "local_time": "Heure locale",
         "feels_like": "Ressenti",
         "humidity": "Humidité",
         "pressure": "Pression",
         "wind_speed": "Vitesse du vent",
-        "clouds":"Nuages",
+        "clouds": "Nuages",
         "sunrise": "Lever du soleil",
         "sunset": "Coucher du soleil",
         "day_temp": "Jour",
         "night_temp": "Nuit"
+    },
+    "not_found": {
+        "text": "La page que vous cherchez n'existe pas.",
+        "button": "page d'accueil"
     }
 }
