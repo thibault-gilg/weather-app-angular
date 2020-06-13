@@ -1,0 +1,28 @@
+{
+    "navbar":{
+        "title": "La météo de votre lieu préféré",
+        "unit": "Unité",
+        "lang": "Langue"
+    },
+    "search":{
+        "header": "Météo actuelle et prévisions",
+        "coordinates": "Si vous désirez entrer des coordonnées géographiques, veuillez utiliser le format Degrés Décimaux (DD), par exemple, ",
+        "codes": "Les pays et les Etats sont représentés par un code de deux lettres définis par la norme ISO 3166 (ex: FR = France).",
+        "location": "Ville ou coordonnées GPS",
+        "state_code": "Code Etat",
+        "country_code": "Code pays",
+        "button": "Rechercher" 
+    },
+    "weather":{
+        "local_time": "Heure locale",
+        "feels_like": "Ressenti",
+        "humidity": "Humidité",
+        "pressure": "Pression",
+        "wind_speed": "Vitesse du vent",
+        "clouds":"Nuages",
+        "sunrise": "Lever du soleil",
+        "sunset": "Coucher du soleil",
+        "day_temp": "Jour",
+        "night_temp": "Nuit"
+    }
+}

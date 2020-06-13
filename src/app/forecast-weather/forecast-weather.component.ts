@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { WeatherService } from '../weather.service';
 import { Subscription } from 'rxjs';
@@ -12,18 +12,30 @@ export class ForecastWeatherComponent implements OnInit {
 
   public forecastWeatherSubscription: Subscription;
   public forecastWeather: any;
-  
-  constructor(private router: Router, private weatherService: WeatherService) { }
+  public days: number;
+
+  constructor(private router: Router,
+    private weatherService: WeatherService) { }
 
   ngOnInit(): void {
+    this.displayForecastWeather();
+  }
+
+  displayForecastWeather(): void {
     this.forecastWeatherSubscription = this.weatherService.getForecastObservable()
       .subscribe(obs => {
         obs.subscribe(data => {
-          this.forecastWeather = data;
-      },
-      (error) => {
-        this.router.navigate(['error404'])
-      })
-    });
+          this.forecastWeather = data.daily;
+          console.log(this.forecastWeather);
+        },
+          (error) => {
+            this.router.navigate(['error404'])
+          })
+      });
+  }
+
+  //assign the number of days selected by the user
+  OnDisplayForecast(days: number): void {
+    this.days = days;
   }
 }

@@ -1,6 +1,7 @@
 /*navbar color*/
 .navbar{
   background-color: #03073b;
+  padding: 0.5rem;
 }
 .weather-icon{
   height: 2.3rem;
@@ -11,27 +12,22 @@
   color: white;
   font-weight: bold;
 }
-/*size of dropdown buttons reduced for smaller screens*/
+/*size of dropdown buttons reduced for smaller screens
 .dropdown-menu{
   width: 1vw;
 }
 .dropdown-item{
   padding-left: 0.5rem;  
 }
-/*flag size*/
+flag size
 .us-flag, .fr-flag, .sp-flag{
   height: 1rem;
   width: 1rem;
+}*/
+.select{
+  padding: 0.5rem;
 }
 .github-logo{
-  height: 1.2rem;
-  width: 1.2rem;
-}
-
-
-/************************************************************************************/
-/*Exercice*/
-
-.container{
-  padding-top: 100px;
+  height: 1.4rem;
+  width: 1.4rem;
 }

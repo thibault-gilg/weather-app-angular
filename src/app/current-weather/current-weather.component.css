@@ -1,6 +1,16 @@
-button{
-    position: absolute;
-    margin: O;
-    left: 50%;
+.container{
+    padding-top: 2rem;
+    display: flex;
     justify-content: center;
+}
+.main{
+    font-size: 1.8em;
+}
+p{
+    display: inline-block;
+    width: auto;
+
+}
+img{
+    float: right;
 }

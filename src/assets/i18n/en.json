@@ -1,0 +1,28 @@
+{
+    "navbar": {
+        "title": "The weather of your favorite location",
+        "unit": "Unit",
+        "lang": "Language"
+    },
+    "search": {
+        "header": "Current and forecast weather",
+        "coordinates": "If you choose to enter geographic coordinates, please use the Decimal Degrees (DD) format, such as ",
+        "codes": "Countries and states are represented by the two-letter codes defined by the ISO 3166 standard (ex : US = United States).",
+        "location": "City or GPS coordinates",
+        "state_code": "State code",
+        "country_code": "Country code",
+        "button": "Search"
+    },
+    "weather": {
+        "local_time": "Local time",
+        "feels_like": "Feels like",
+        "humidity": "Humidity",
+        "pressure": "Pressure",
+        "wind_speed": "Wind speed",
+        "clouds":"Cloudiness",
+        "sunrise": "Sunrise",
+        "sunset": "Sunset",
+        "day_temp": "Day",
+        "night_temp": "Night"
+    }
+}
