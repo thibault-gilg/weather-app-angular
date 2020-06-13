@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { WeatherService } from '../weather.service';
 import { Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-forecast-weather',
@@ -15,7 +16,9 @@ export class ForecastWeatherComponent implements OnInit {
   public days: number;
 
   constructor(private router: Router,
-    private weatherService: WeatherService) { }
+    private weatherService: WeatherService,
+    public cookie: CookieService) {
+     }
 
   ngOnInit(): void {
     this.displayForecastWeather();
@@ -26,7 +29,6 @@ export class ForecastWeatherComponent implements OnInit {
       .subscribe(obs => {
         obs.subscribe(data => {
           this.forecastWeather = data.daily;
-          console.log(this.forecastWeather);
         },
           (error) => {
             this.router.navigate(['error404'])

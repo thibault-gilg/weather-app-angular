@@ -6,9 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './current-weather/current-weather.component';
 import { WeatherService } from './weather.service';
-import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 import { ForecastWeatherComponent } from './forecast-weather/forecast-weather.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -23,7 +22,6 @@ import { CookieService } from 'ngx-cookie-service';
     NavbarComponent,
     SearchComponent,
     PageNotFoundComponent,
-    CurrentWeatherComponent,
     ForecastWeatherComponent
   ],
   imports: [

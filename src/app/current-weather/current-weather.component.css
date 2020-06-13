@@ -1,16 +1,27 @@
-.container{
+#search{
+    padding-top: 8rem;
+}
+#search .row{
+    display: flex;
+    justify-content: center;
+}
+#search form{
+    padding-top: 0.5rem;
+}
+/*current weather*/
+#weather{
     padding-top: 2rem;
     display: flex;
     justify-content: center;
 }
-.main{
-    font-size: 1.8em;
+#weather span{
+    font-size: 1.8rem;
 }
-p{
+#weather p{
     display: inline-block;
     width: auto;
-
 }
-img{
+#weather img{
     float: right;
+    display: block;
 }

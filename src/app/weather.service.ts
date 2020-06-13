@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,25 +14,23 @@ export class WeatherService {
   private apiKey = '0e613bc065bbac924796e909e4160d7b';
   private apiUrl = 'http://api.openweathermap.org/data/2.5';
   private language: string;
-
-  private currentWeatherSubject = new Subject<any>();
   private forecastWeatherSubject = new Subject<any>();
-  private latitude: number;
-  private longitude: number;
+  private system: string;
 
   constructor(private http: HttpClient,
     private translate: TranslateService,
     private cookie: CookieService) {
     this.language = this.translate.currentLang;
+    this.system = this.cookie.get("system");
   }
 
   //adapt the location for the GET request
-  checkLocationType(location: string, stateCode: string, countryCode: string): string {
+  checkLocationType(location: string, stateCode?: string, countryCode?: string): string {
     if (this.coordinatesRegex.test(location)) {
-      const splitlocation = location.split(', ', 2);
-      var urlLocation: string = 'lat=' + splitlocation[0] + '&lon=' + splitlocation[1];
+      const splitLocation = location.split(', ', 2);
+      var urlLocation: string = 'lat=' + splitLocation[0] + '&lon=' + splitLocation[1];
     }
-    else if (stateCode == null){
+    else if (stateCode == null) {
       urlLocation = 'q=' + location + ',' + countryCode;
     }
     else {
@@ -42,29 +40,19 @@ export class WeatherService {
   }
 
   //GET request to the API
-  getCurrentWeather(location: string, stateCode: string, countryCode: string): void {
+  getCurrentWeather(location: string, stateCode?: string, countryCode?: string) {
     const urlLocation = this.checkLocationType(location, stateCode, countryCode);
-    this.currentWeatherSubject.next(this.http.get(
-      this.apiUrl + '/weather?' + urlLocation + '&lang=' + this.language + '&units=' + this.cookie.get("unit") + '&appid=' + this.apiKey));
-  }
-
-  //create an observable for the CurrentWeather Component
-  getCurrentObservable(): Observable<any> {
-    return this.currentWeatherSubject.asObservable();
-  }
-
-  //retrieve coordinates from JSON object to call forecast weather API
-  setLocationCoordinates(currentWeather: any): void {
-    this.latitude = currentWeather.coord.lat;
-    this.longitude = currentWeather.coord.lon;
+    return this.http.get(
+      this.apiUrl + '/weather?' + urlLocation + '&lang=' + this.language + '&units=' + this.system + '&appid=' + this.apiKey);
   }
 
   //GET request to API with GPS coordinates
-  getForecastWeather(): void {
+  getForecastWeather(latitude: number, longitude: number): void {
     this.forecastWeatherSubject.next(this.http.get(
-      this.apiUrl + '/onecall?lat=' + this.latitude + '&lon=' + this.longitude + '&lang=en' + '&units=metric' + '&exclude=minutely,hourly,current&appid=' + this.apiKey));
+      this.apiUrl + '/onecall?lat=' + latitude + '&lon=' + longitude + '&lang=' + this.language + '&units=' + this.system + '&exclude=minutely,hourly,current&appid=' + this.apiKey));
   }
 
+  //create an observable for the ForecastWeather Component
   getForecastObservable(): Observable<any> {
     return this.forecastWeatherSubject.asObservable();
   }

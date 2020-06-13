@@ -1,13 +1,30 @@
 .container{
     margin: auto;
     width: 20%;
-    padding-top: 1rem;
+    padding-bottom: 4rem;
 }
 button{
     margin-right: 0.2rem;
     margin-left: 0.2rem;
 }
-.forecast-weather{
+.row{
     padding-top: 2rem;
+}
+.card{
+    width: 18rem;
+}
+.card-body{
+    padding: 0.4rem 0.2rem 0.4rem 0.2rem;
+}
+.card-body img{
+    float: right;
+    width: 25%;
+    height: 25%;
+}
+.card-body p{
+    display: inline-block;
+}
+.card-body span{
+    font-size: 1.3rem;
 }
 

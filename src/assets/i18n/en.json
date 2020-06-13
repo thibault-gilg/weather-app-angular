@@ -1,6 +1,6 @@
 {
     "navbar": {
-        "title": "The weather of your favorite location",
+        "title": "The weather of your dream location",
         "unit": "Unit",
         "lang": "Language"
     },
@@ -8,6 +8,7 @@
         "header": "Current and forecast weather",
         "coordinates": "If you choose to enter geographic coordinates, please use the Decimal Degrees (DD) format, such as ",
         "codes": "Countries and states are represented by the two-letter codes defined by the ISO 3166 standard (ex : US = United States).",
+        "us_states": "The state code correspond to US states.",
         "location": "City or GPS coordinates",
         "state_code": "State code",
         "country_code": "Country code",
@@ -19,10 +20,14 @@
         "humidity": "Humidity",
         "pressure": "Pressure",
         "wind_speed": "Wind speed",
-        "clouds":"Cloudiness",
+        "clouds": "Cloudiness",
         "sunrise": "Sunrise",
         "sunset": "Sunset",
         "day_temp": "Day",
         "night_temp": "Night"
-    }
+    },
+    "not_found": {
+        "text": "The page you are looking for does not exist.",
+        "button": "home page"
+    } 
 }
