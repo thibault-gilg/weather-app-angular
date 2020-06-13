@@ -1,10 +1,23 @@
-
-<!--Display current weather results-->
-<div class="weather-results" *ngIf="this.forecastWeather">
-    <p class="text-center">
-    Temperature min: {{this.forecastWeather?.daily[0].temp.min}}°C
-    </p>
-    <p class="text-center">
-    Temperature max : {{this.forecastWeather?.daily[0].temp.max}}°C
-    </p>
+<div class="container" *ngIf="forecastWeather">
+  <div class="row">
+    <!--Selection for the number of days of forecast-->
+    <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(1)">Tomorrow</button>
+    <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(3)">3 Days</button>
+    <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(7)">7 Days</button>
+  </div>
+  <div class="row">
+    <div class="forecast-weather" *ngFor="let day of forecastWeather; index as i">
+      <!--Display from tomorrow up to the selected number of days-->
+      <div class="card" *ngIf="i>0 && i<=days">
+        <div class="card-body">
+          <img src="http://openweathermap.org/img/wn/{{this.day.weather[0].icon}}@2x.png" alt="Weather icon">
+          <p>
+            <span>{{this.day.dt*1000 | date: 'EEEE, MMMM d'}}</span><br />
+            {{this.day.temp.day}} / {{this.day.temp.night}} {{this.cookie.get("unit")}}<br />
+            {{this.day.weather[0].description | titlecase}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

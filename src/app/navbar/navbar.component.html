@@ -1,42 +1,44 @@
-
+<!--Top navigation bar-->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-
   <!--Top left weather icon-->
-  <div class="navbar-header"> <!--For correct display on phones-->
+  <div class="navbar-header">
     <a class="navbar-brand" href="/">
-      <img class="weather-icon" src="../../assets/clouds.png" alt="Weather icon">
+      <img src="../../assets/images/clouds.png" alt="Weather icon">
     </a>
   </div>
-  <div class="navbar-nav"><span class="navbar-text">{{title}}</span></div>
-
+  <div class="navbar-nav">
+    <span class="navbar-text">{{'navbar.title' | translate}}</span>
+  </div>
   <!--Toggle button for small screens-->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">      
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav ml-auto">
-
-      <!--Temperature system-->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">°C</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#imperial">°F</a>
-        </div>
+      <!--Unit selection-->
+      <li class="select">
+        <select name="units" id="units" #unitSelect (change)="saveUnit(unitSelect.value)">
+          <option selected>{{'navbar.unit' | translate}}</option>
+          <option *ngFor="let unit of units | keyvalue" [value]="[unit.key, unit.value]">
+            {{unit.value[0]}}
+          </option>
+        </select>
       </li>
-
-      <!--Language selector-->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#en"><span class="flag-icon flag-icon-en"> </span><img class="us-flag" src="../../assets/usa-flag.png" alt="US flag">  English</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown02">
-          <a class="dropdown-item" href="#fr"><span class="flag-icon flag-icon-fr"> </span><img class="fr-flag" src="../../assets/fr-flag.png" alt="French flag">  French</a>
-          <a class="dropdown-item" href="#es"><span class="flag-icon flag-icon-es"> </span><img class="sp-flag" src="../../assets/sp-flag.png" alt="Spanish flag">  Spanish</a>
-        </div>
+      <!--Language selection-->
+      <li class="select">
+        <select name="lang" id="lang" #langSelect (change)="translate.use(langSelect.value) && reloadPage()">
+          <option selected>{{'navbar.lang' | translate}}</option>
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang">
+            {{lang}}
+          </option>
+        </select>
       </li>
-      
       <!--Github logo and link-->
       <li class="nav-item">
-        <a class="nav-link" href="https://github.com/thibault-gilg/weather-app-angular" target="_blank" rel="noopener" aria-label="GitHub">
-          <img class="github-logo" src="../../assets/github-icon.png" alt="Github logo">
+        <a class="nav-link" href="https://github.com/thibault-gilg/weather-app-angular" target="_blank" rel="noopener"
+          aria-label="GitHub">
+          <img src="../../assets/images/github-icon.png" alt="Github logo">
         </a>
       </li>
     </ul>
