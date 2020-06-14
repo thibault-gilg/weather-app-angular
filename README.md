@@ -19,4 +19,4 @@ The aim of this project was to develop a Web application displaying forecast and
 
 ## Deployment
 
-The project is deployed on [Firebase] (https://firebase.google.com/). Here's the link (https://)
+The project is deployed on [Firebase] (https://firebase.google.com/). Here's the link (https://weather-app-b26f8.web.app/).
