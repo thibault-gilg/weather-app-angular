@@ -15,7 +15,7 @@ export class WeatherService {
 
   private coordinatesRegex: RegExp = /^ *([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))( +)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?) *$/;
   private apiKey = '0e613bc065bbac924796e909e4160d7b';
-  private apiUrl = 'http://api.openweathermap.org/data/2.5';
+  private apiUrl = 'https://api.openweathermap.org/data/2.5';
   private language: string;
   private forecastWeatherSubject = new Subject<any>();
   private system: string;
