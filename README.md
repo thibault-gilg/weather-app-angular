@@ -1,27 +1,22 @@
-# WeatherApp
+# Weather Forecast Web Application project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
+The aim of this project was to develop a Web application displaying forecast and current weather using Angular and Bootsrap as the HTML and CSS framework. The weather data is provided by OpenWeatherMap. The project serves as an exercise to learn the Angular technology.
 
-## Development server
+## Functionalities
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Search a location by entering city or coordinates, state and country in order to obtain data relative to the current weather.
+* Choose the number of days (1, 3 or 7) for the forecast weather.
+* Switch between languages (english and french) and unit system (imperial and metric)
+* The last location is remembered and displayed when the user returns to the application.
 
-## Code scaffolding
+## Main sources
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* (https://angular.io)
+* (https://openclassrooms.com/fr/courses/4668271-developpez-des-applications-web-avec-angular)
+* (https://github.com/ngx-translate/core)
+* (https://getbootstrap.com)
+* (https://w3schools.com)
 
-## Build
+## Deployment
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The project is deployed on [Firebase] (https://firebase.google.com/). Here's the link (https://)

@@ -1,20 +1,21 @@
 <div class="container" *ngIf="forecastWeather">
   <div class="row">
-    <!--Selection for the number of days of forecast-->
+    <!--Selection for the number of days for forecast data-->
     <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(1)">Tomorrow</button>
     <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(3)">3 Days</button>
     <button type="button" class="btn btn-primary" (click)="OnDisplayForecast(7)">7 Days</button>
   </div>
   <div class="row">
-    <div class="forecast-weather" *ngFor="let day of forecastWeather; index as i">
-      <!--Display from tomorrow up to the selected number of days-->
+    <div class="forecast-weather" *ngFor="let day of forecastWeather.daily; index as i">
+      <!--Display daily forecast from tomorrow up to the selected number of days (1, 3 or 7)-->
       <div class="card" *ngIf="i>0 && i<=days">
         <div class="card-body">
-          <img src="http://openweathermap.org/img/wn/{{this.day.weather[0].icon}}@2x.png" alt="Weather icon">
+          <img src="http://openweathermap.org/img/wn/{{day.weather[0].icon}}@2x.png" alt="Weather icon">
           <p>
-            <span>{{this.day.dt*1000 | date: 'EEEE, MMMM d'}}</span><br />
-            {{this.day.temp.day}} / {{this.day.temp.night}} {{this.cookie.get("unit")}}<br />
-            {{this.day.weather[0].description | titlecase}}
+            <!--Date pipe to display the date in the desired format-->
+            <span>{{day.dt*1000 | date: 'EEEE, MMMM d'}}</span><br />
+            {{day.temp.day}} / {{day.temp.night}} {{cookie.get("unit")}}<br />
+            {{day.weather[0].description | titlecase}}
           </p>
         </div>
       </div>

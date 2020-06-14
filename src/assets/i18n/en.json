@@ -9,7 +9,7 @@
         "coordinates": "If you choose to enter geographic coordinates, please use the Decimal Degrees (DD) format, such as ",
         "codes": "Countries and states are represented by the two-letter codes defined by the ISO 3166 standard (ex : US = United States).",
         "us_states": "The state code correspond to US states.",
-        "location": "City or GPS coordinates",
+        "location": "City or Geo coordinates",
         "state_code": "State code",
         "country_code": "Country code",
         "button": "Search"

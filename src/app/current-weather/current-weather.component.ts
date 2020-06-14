@@ -1,8 +1,9 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, Input } from '@angular/core';
 import { WeatherService } from '../weather.service';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms'
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { CurrentWeather } from './current-weather';
 
 
 @Component({
@@ -13,13 +14,14 @@ import { Router } from '@angular/router';
 @Injectable()
 export class SearchComponent implements OnInit {
 
+  @Input() currentWeather: CurrentWeather;
+
   public weatherSearchForm: FormGroup;
-  //Regex to control the user's input: word or geographic coordinates (D,D)
-  private locationRegex: string = "^ *([A-Za-z] *)+$|^ *([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))( +)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?) *$";
+  //Regex to control the user's input: city or geographic coordinates (D,D)
+  private locationRegex: string = "^ *([A-Za-z](-' )*)+|^ *([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))( +)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?) *$";
   //Regex: two letters only (state and country codes)
   private codeRegex: string = "^ *[A-Za-z]{2} *$";
   private coordinatesRegex: RegExp = /^ *([-+]?)([0-9]{1,2})((((\.)([0-9]+))?(,)))( +)(([-+]?)([0-9]{1,3})((\.)([0-9]+))?) *$/;
-  public currentWeather: any;
   public localTime: number;
 
   constructor(private weatherService: WeatherService,
@@ -30,8 +32,9 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    if (this.cookie.check("location")){
-      this.displayWeather(this.cookie.get("location"));
+    //remenber last searched location
+    if (this.cookie.check("location")) {
+      this.getCurrentWeather(this.cookie.get("location"));
     }
   }
 
@@ -57,33 +60,18 @@ export class SearchComponent implements OnInit {
     return this.weatherSearchForm.get('countryCode');
   }
 
-  //retrieve string value and call the WeatherService 
+  //retrieve entered values to make API request 
   onSubmitSearch(): void {
     const location: string = this.weatherSearchForm.value.location;
     const stateCode: string = this.weatherSearchForm.value.stateCode;
     const countryCode: string = this.weatherSearchForm.value.countryCode;
-    this.displayWeather(location, stateCode, countryCode);
+
+    this.getCurrentWeather(location, stateCode, countryCode);
+    //clear the search boxes after submitting search
+    this.weatherSearchForm.reset();
   }
 
-  //add specific validators depending on the informations entered
-  setConditionalValidators() {
-    const countryCodeControl = this.weatherSearchForm.get('countryCode');
-    const stateCodeControl = this.weatherSearchForm.get('stateCode');
-    this.weatherSearchForm.get('stateCode').valueChanges
-      .subscribe(stateCode => {
-        countryCodeControl.setValidators(Validators.required)
-        countryCodeControl.updateValueAndValidity();
-      });
-    this.weatherSearchForm.get('location').valueChanges
-      .subscribe(location => {
-        if (this.coordinatesRegex.test(location)) {
-          countryCodeControl.disable();
-          stateCodeControl.disable();
-        }
-      })
-  }
-
-  displayWeather(location: string, stateCode?: string, countryCode?: string) {
+  getCurrentWeather(location: string, stateCode?: string, countryCode?: string) {
     this.weatherService.getCurrentWeather(location, stateCode, countryCode)
       .subscribe(data => {
         this.currentWeather = data;
@@ -91,6 +79,7 @@ export class SearchComponent implements OnInit {
         this.getLocalTime();
         this.saveLocation();
       },
+        //display error 404 page if error
         (error) => {
           this.router.navigate(['error404'])
         });

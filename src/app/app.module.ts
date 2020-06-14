@@ -30,7 +30,7 @@ import { CookieService } from 'ngx-cookie-service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    //Translation modules
+    //Translation feature
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -38,6 +38,7 @@ import { CookieService } from 'ngx-cookie-service';
         deps: [HttpClient]
       }
     }),
+    //Translation feature with cookie
     TranslateCacheModule.forRoot({
       cacheService: {
         provide: TranslateCacheService,
@@ -51,16 +52,13 @@ import { CookieService } from 'ngx-cookie-service';
     WeatherService,
     //To manipulate cookies
     CookieService
-],
+  ],
   bootstrap: [AppComponent],
   exports: [TranslateModule]
 })
 export class AppModule {
 
-  constructor(
-    translate: TranslateService,
-    translateCacheService: TranslateCacheService,
-  ) {
+  constructor(translate: TranslateService, translateCacheService: TranslateCacheService) {
     translateCacheService.init();
     translate.addLangs(['en', 'fr']);
     const browserLang = translateCacheService.getCachedLanguage() || translate.getBrowserLang();

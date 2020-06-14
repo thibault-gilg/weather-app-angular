@@ -9,7 +9,7 @@
         "coordinates": "Si vous désirez entrer des coordonnées géographiques, veuillez utiliser le format Degrés Décimaux (DD), par exemple, ",
         "codes": "Les pays et les Etats sont représentés par un code de deux lettres définis par la norme ISO 3166 (ex: FR = France).",
         "us_states": "Le code de l'Etat correspond aux Etats américains.",
-        "location": "Ville ou coordonnées GPS",
+        "location": "Ville ou coordonnées géo",
         "state_code": "Code de l'Etat",
         "country_code": "Code pays",
         "button": "Rechercher"

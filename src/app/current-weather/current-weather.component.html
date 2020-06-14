@@ -6,6 +6,7 @@
         <h1>{{'search.header' | translate}}</h1>
     </div>
     <div class="row">
+        <!--Search instructions-->
         <ul>
             <li>{{'search.coordinates' | translate}}(30.27, -97.76).</li>
             <li>{{'search.codes' | translate}}</li>
@@ -40,43 +41,43 @@
     </div>
     <!--Display current weather results-->
     <div class="container" id="weather">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 current-weather" *ngIf="this.currentWeather">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 current-weather" *ngIf="currentWeather">
             <p>
-                <img src="http://openweathermap.org/img/wn/{{this.currentWeather.weather[0].icon}}@2x.png"
+                <img src="http://openweathermap.org/img/wn/{{currentWeather.weather[0].icon}}@2x.png"
                     alt="Weather icon">
-                <span>{{this.currentWeather.name}}, {{this.currentWeather.sys.country}}
-                    {{this.currentWeather.main.temp}} {{this.cookie.get("unit")}}
+                <span>{{currentWeather.name}}, {{currentWeather.sys.country}}
+                    {{currentWeather.main.temp}} {{cookie.get("unit")}}
                 </span><br />
-                {{this.currentWeather.weather[0].description | titlecase}}<br />
+                {{currentWeather.weather[0].description | titlecase}}<br />
                 <!--Unix timestamp conversion with date pipe-->
-                {{this.currentWeather.dt*1000 | date:'MM/dd/yyyy, h:mm a'}}<br />
-                ({{this.cookie.get("location")}})
+                {{currentWeather.dt*1000 | date:'MM/dd/yyyy, h:mm a'}}<br />
+                ({{cookie.get("location")}})
             </p>
             <table class="table table-bordered table-striped">
                 <tbody>
                     <tr>
                         <th scope="row">{{'weather.local_time' | translate}}</th>
-                        <td>{{this.localTime | date:'h:mm a'}}</td>
+                        <td>{{localTime | date:'h:mm a'}}</td>
                         <th scope="row">{{'weather.wind_speed' | translate}}</th>
-                        <td>{{this.currentWeather.wind.speed}} {{this.cookie.get("speed")}}</td>
+                        <td>{{currentWeather.wind.speed}} {{cookie.get("speed")}}</td>
                     </tr>
                     <tr>
                         <th scope="row">{{'weather.feels_like' | translate}}</th>
-                        <td>{{this.currentWeather.main.feels_like}} {{this.cookie.get("unit")}}</td>
+                        <td>{{currentWeather.main.feels_like}} {{cookie.get("unit")}}</td>
                         <th scope="row">{{'weather.clouds' | translate}}</th>
-                        <td>{{this.currentWeather.clouds.all}} %</td>
+                        <td>{{currentWeather.clouds.all}} %</td>
                     </tr>
                     <tr>
                         <th scope="row">{{'weather.humidity' | translate}}</th>
-                        <td>{{this.currentWeather.main.humidity}} %</td>
+                        <td>{{currentWeather.main.humidity}} %</td>
                         <th scope="row">{{'weather.sunrise' | translate}}</th>
-                        <td>{{this.currentWeather.sys.sunrise*1000 | date: 'h:mm a'}}</td>
+                        <td>{{currentWeather.sys.sunrise*1000 | date: 'h:mm a'}}</td>
                     </tr>
                     <tr>
                         <th scope="row">{{'weather.pressure' | translate}}</th>
-                        <td>{{this.currentWeather.main.pressure}} hPa</td>
+                        <td>{{currentWeather.main.pressure}} hPa</td>
                         <th scope="row">{{'weather.sunset' | translate}}</th>
-                        <td>{{this.currentWeather.sys.sunset*1000 | date: 'h:mm a'}}</td>
+                        <td>{{currentWeather.sys.sunset*1000 | date: 'h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>

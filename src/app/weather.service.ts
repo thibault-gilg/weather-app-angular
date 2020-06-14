@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
+import { CurrentWeather } from './current-weather/current-weather';
+import { ForecastWeather } from './forecast-weather/forecast-weather';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +22,20 @@ export class WeatherService {
 
   constructor(private http: HttpClient,
     private translate: TranslateService,
-    private cookie: CookieService) {
+    private cookie: CookieService
+  ) {
     this.language = this.translate.currentLang;
     this.system = this.cookie.get("system");
   }
 
   //adapt the location for the GET request
   checkLocationType(location: string, stateCode?: string, countryCode?: string): string {
+    //geographic coordinates
     if (this.coordinatesRegex.test(location)) {
       const splitLocation = location.split(', ', 2);
       var urlLocation: string = 'lat=' + splitLocation[0] + '&lon=' + splitLocation[1];
     }
+    //no state code
     else if (stateCode == null) {
       urlLocation = 'q=' + location + ',' + countryCode;
     }
@@ -39,10 +45,10 @@ export class WeatherService {
     return urlLocation;
   }
 
-  //GET request to the API
-  getCurrentWeather(location: string, stateCode?: string, countryCode?: string) {
+  //GET request to the API (optional paremeters)
+  getCurrentWeather(location: string, stateCode?: string, countryCode?: string): Observable<CurrentWeather> {
     const urlLocation = this.checkLocationType(location, stateCode, countryCode);
-    return this.http.get(
+    return this.http.get<CurrentWeather>(
       this.apiUrl + '/weather?' + urlLocation + '&lang=' + this.language + '&units=' + this.system + '&appid=' + this.apiKey);
   }
 
@@ -53,7 +59,7 @@ export class WeatherService {
   }
 
   //create an observable for the ForecastWeather Component
-  getForecastObservable(): Observable<any> {
+  getForecastObservable(): Observable<Observable<ForecastWeather>> {
     return this.forecastWeatherSubject.asObservable();
   }
 }

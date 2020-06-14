@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { WeatherService } from '../weather.service';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { ForecastWeather } from './forecast-weather';
 
 @Component({
   selector: 'app-forecast-weather',
@@ -11,8 +12,9 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ForecastWeatherComponent implements OnInit {
 
+  @Input() forecastWeather: ForecastWeather;
+
   public forecastWeatherSubscription: Subscription;
-  public forecastWeather: any;
   public days: number;
 
   constructor(private router: Router,
@@ -21,14 +23,15 @@ export class ForecastWeatherComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    this.displayForecastWeather();
+    this.getForecastWeather();
   }
 
-  displayForecastWeather(): void {
+  //get ForecastWeather Observable
+  getForecastWeather(): void {
     this.forecastWeatherSubscription = this.weatherService.getForecastObservable()
       .subscribe(obs => {
         obs.subscribe(data => {
-          this.forecastWeather = data.daily;
+          this.forecastWeather = data;
         },
           (error) => {
             this.router.navigate(['error404'])

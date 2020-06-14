@@ -14,9 +14,7 @@ export class NavbarComponent implements OnInit {
   private defaultUnit: string = "°F";
   private defaultSpeed: string = "mph";
 
-
-  constructor(public translate: TranslateService,
-    public cookie: CookieService) {
+  constructor(public translate: TranslateService, public cookie: CookieService) {
     this.units.set("metric", ["°C", "m/s"]);
     this.units.set("imperial", ["°F", "mph"]);
     this.setDefaultUnit();
@@ -25,7 +23,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //store default unit system in cookies with an expiry time of 30 days
+  //set default unit system in cookies with an expiry time of 30 days if the cookies don't exist
   setDefaultUnit(): void {
     if (!this.cookie.check("system")) {
       this.cookie.set("system", this.defaultSystem, 30);
@@ -34,11 +32,12 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  //reload page when language is changed
+  //reload page when language is changed to apply changes in the API request
   reloadPage(): void {
     window.location.reload();
   }
 
+  //store the selected unit data in cookies
   saveUnit(unit: string): void {
     const splitUnit = unit.split(',', 3);
     this.cookie.set("system", splitUnit[0], 30);
