@@ -11,12 +11,12 @@ The aim of this project was to develop a Web application displaying forecast and
 
 ## Main sources
 
-* (https://angular.io)
-* (https://openclassrooms.com/fr/courses/4668271-developpez-des-applications-web-avec-angular)
-* (https://github.com/ngx-translate/core)
-* (https://getbootstrap.com)
-* (https://w3schools.com)
+* https://angular.io
+* https://openclassrooms.com/fr/courses/4668271-developpez-des-applications-web-avec-angular
+* https://github.com/ngx-translate/core
+* https://getbootstrap.com
+* https://w3schools.com
 
 ## Deployment
 
-The project is deployed on [Firebase] (https://firebase.google.com/). Here's the link (https://weather-app-b26f8.web.app/).
+The project is deployed on Firebase. Here's the link https://weather-app-b26f8.web.app/.
